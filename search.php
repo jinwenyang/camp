@@ -20,6 +20,7 @@
         include "dbconnect.php";
         
         $result = mysqli_query($link, "SELECT * FROM activity WHERE act_name LIKE '%$srch%' OR act_desc LIKE '%$srch%';");
+
         if ($result->num_rows == 0 or $_GET['srch'] == '') { ?>
 
             <div class="row clearfix">
@@ -33,12 +34,13 @@
             </div>
 
         <?php }else { 
+
 		    while( $row = mysqli_fetch_assoc($result)){ ?>
 
                 <div class="row bg-info">
 
                     <div class="col-sm-3">
-                        <img src="" alt="營隊海報">
+                        <img src="<?php echo $row['act_poster'];?>" alt="營隊海報" width=250px height=200px>
                     </div>
 
                     <div class="col-sm-6 text-left">

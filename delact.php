@@ -7,19 +7,20 @@
     <title>刪除營隊</title>
 </head>
 <body>
-        <?php include "header.php";
-        include "dbconnect.php"; ?>
+        <?php 
+        
+        include "header.php";
+        include "dbconnect.php";
 
-<?php
+        $act_code=$_GET["sact_code"];
 
- $act_code=$_GET["sact_code"];
-
-$sqL2="DELETE FROM activity  WHERE act_code='$act_code'";
-$result=mysqli_query($link, $sqL2);
+        $sqL2="DELETE FROM activity  WHERE act_code='$act_code'";
+        $result=mysqli_query($link, $sqL2);
 
 
-mysqli_close($link);
-header('Location: mycamp.php');
-	?>
+        mysqli_close($link);
+        header('Location: mycamp.php');
+
+        ?>
 </body>
 </html>

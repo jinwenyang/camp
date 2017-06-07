@@ -1,0 +1,58 @@
+CREATE TABLE `user` (
+    u_code int not null AUTO_INCREMENT PRIMARY KEY,
+    u_id varchar(10) NOT NULL,
+    u_pwd varchar(15) NOT NULL,
+    u_name varchar(10) NOT NULL,
+    u_phone int(10) NOT NULL,
+    u_email varchar(100) NOT NULL,
+    u_auth ENUM('user', 'admin' ,'su') NOT NULL
+);
+INSERT INTO `user`(u_code, u_id, u_pwd, u_name, u_auth) VALUES ('1', 'user', 'user', '一般會員測試', 'user');
+INSERT INTO `user`(u_code, u_id, u_pwd, u_name, u_auth) VALUES ('2', 'admin',' admin', '廠商測試', 'admin');
+/*CREATE user END*/
+
+
+CREATE TABLE `activity` (
+    act_code int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    act_name varchar(100) NOT NULL,
+    act_desc varchar(300) NOT NULL,
+    act_price int(5) NOT NULL,
+    act_area ENUM('臺北市', '新北市', '桃園市' ,'臺中市', '臺南市', '高雄市', '基隆市', '桃園縣', '新竹市', '新竹縣', '苗栗縣', '彰化市', '彰化縣', '南投縣', '雲林縣', '嘉義市', '嘉義縣', '屏東市', '屏東縣', '台東縣', '花蓮市', '花蓮縣', '宜蘭縣', '澎湖縣' ,'金門縣', '連江縣', '香港', '海外', '其他') NOT NULL,
+    act_stage1 varchar(10), /*SET('幼稚園', '國小', '國中', '高中', '高職', '大專院校', '研究所', '社會人士' ) NOT NULL,可複選*/
+    act_stage2 varchar(10),
+    act_stage3 varchar(10),
+    act_stage4 varchar(10),
+    act_stage5 varchar(10),
+    act_stage6 varchar(10),
+    act_stage7 varchar(10),
+    act_stage8 varchar(10),
+    act_field ENUM('法政', '財經', '外語', '數理化學', '地球與環境', '資訊', '生物資源', '建築', '設計', '藝術', '社會與心理', '大眾傳播', '文史哲', '教育', '管理', '運動遊憩', '工程', '機器人', '生命科學', '醫藥衛生', '其他') NOT NULL,
+    act_poster LONGBLOB,
+    act_url varchar(100) NOT NULL,
+	act_signup_starttime DATE NOT NULL,
+    act_signup_endtime DATE NOT NULL,
+    act_starttime DATE NOT NULL,
+    act_endtime DATE NOT NULL,
+    act_PICname varchar(10) NOT NULL, /*person in charge*/
+    act_PICphone int(10) NOT NULL,
+    act_ORG varchar(40) NOT NULL, /*舉辦單位*/
+    u_code int NOT NULL,
+    FOREIGN KEY (u_code) REFERENCES `user`(u_code)
+);
+/*CREATE Activity END*/
+
+
+CREATE TABLE `comment` (
+	cmnt_code int NOT NULL AUTO_INCREMENT,
+    u_code int NOT NULL,
+    act_code int NOT NULL,
+	content varchar(300) NOT NULL,
+    PRIMARY KEY (cmnt_code, u_code, act_code)
+);
+/*CREATE comment END*/
+
+CREATE TABLE `collection` (
+    coll_code int NOT NULL AUTO_INCREMENT ,
+    u_code int NOT NULL,
+    act_code int NOT NULL
+);

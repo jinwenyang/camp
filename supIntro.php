@@ -1,4 +1,3 @@
-<?php session_start(); ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,37 +5,39 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-    <?php include "header.php"; ?>
+    <div class="container">
 
+    <?php
 
+    include "header.php";
 
-<?php
- include "dbconnect.php";
+    include "dbconnect.php";
 
-if (isset($_SESSION['auth'])){
-	$finda=$_SESSION['user'];
-	$checka = mysqli_query($link, "SELECT * FROM `user` WHERE `u_id` = '$finda' ; ");
-    $rowFa = mysqli_fetch_assoc($checka);
-        if(isset($rowFa)) 
-            $usu_code= $rowFa['u_code'];
-			
-}
+    if (isset($_SESSION['auth'])){
+        $finda=$_SESSION['user'];
+        $checka = mysqli_query($link, "SELECT * FROM `user` WHERE `u_id` = '$finda' ; ");
+        $rowFa = mysqli_fetch_assoc($checka);
+    if(isset($rowFa)) 
+        $usu_code= $rowFa['u_code'];
+    }
 
-if(isset($_POST['subb'])) {
+    if(isset($_POST['subb'])) {
 
     $c_content=$_POST["c_content"];
     $col_record=$_POST["col_record"];
     $act_code=$_POST["act_code"];
 
-if($_POST["c_content"]!=""){
+    if($_POST["c_content"]!=""){
     $sql3="INSERT INTO comment (act_code, u_code, c_content) 
     VALUES ('$act_code', '$usu_code','$c_content')";
 
     $result=mysqli_query($link, $sql3);
-        }
+    }
     if(isset($_POST["col_record"])){
 
     $sql4="INSERT INTO collect (act_code, u_code, col_record) 
@@ -52,7 +53,7 @@ if($_POST["c_content"]!=""){
     }
     header('Location: allcamp.php');
 
-}else{
+    }else{
 
     $act_code=$_GET["sact_code"];
     $act_name=$_GET['sact_name'];
@@ -61,7 +62,7 @@ if($_POST["c_content"]!=""){
     while($row=mysqli_fetch_assoc($result)){    
     $u_code=$row["u_code"];
     $act_ORG=$row["act_ORG"];
-        }
+    }
 
     echo "<h4>營隊名稱:".$act_name."<h4>";
 
@@ -76,12 +77,12 @@ if($_POST["c_content"]!=""){
     echo "</tr>";
 
     while($row=mysqli_fetch_assoc($result)){    
-   
+
     echo "<tr><td>";
     echo $row["act_name"]."</td><td>";
     echo $row["c_content"]."<br>";
     echo "</td>";
-            }
+    }
     echo"<table>";
 
     if(isset($_SESSION['auth'])){
@@ -93,40 +94,39 @@ if($_POST["c_content"]!=""){
     while($rowc = mysqli_fetch_assoc($findc)){
     $col_code= $rowc['col_code'];
     $col_record= $rowc['col_record'];
-        }
+    }
 
 
 
 
-        if(!isset($col_code)){
-        echo '<form method="post" action="supIntro.php" >';
-        echo'<h4>給評價</h4><br/>';
-        echo'請輸入評價:<textarea name="c_content" rows="6" cols="50" placeholder="限300字"></textarea><br/><br/>';
+    if(!isset($col_code)){
+    echo '<form method="post" action="supIntro.php" >';
+    echo'<h4>給評價</h4><br/>';
+    echo'請輸入評價:<textarea name="c_content" rows="6" cols="50" placeholder="限300字"></textarea><br/><br/>';
 
-        echo'<input type="checkbox" name="col_record" vaLue="收藏">收藏營隊<br/><br/>';
-        echo'<input type="hidden" name="act_code" value="'.$act_code.'" />';
-        echo'<input type="submit" name="subb">';
+    echo'<input type="checkbox" name="col_record" vaLue="收藏">收藏營隊<br/><br/>';
+    echo'<input type="hidden" name="act_code" value="'.$act_code.'" />';
+    echo'<input type="submit" name="subb">';
 
-        echo '</form>';
+    echo '</form>';
 
-        mysqli_close($link);
+    mysqli_close($link);
 
 
     }else if($col_record="收藏"){
 
-        echo '<form method="post" action="supIntroexe.php" >';
-        echo'<h4>給評價</h4><br/>';
-        echo'請輸入評價:<textarea name="c_content" rows="6" cols="50" placeholder="限300字"></textarea><br/><br/>';
-        echo'<input type="checkbox" name="col_record" vaLue="不收藏">收藏營隊(您已收藏，按下按鈕將取消收藏!!)<br/><br/>';
-        echo'<input type="hidden" name="act_code" value="'.$act_code.'" />';
-        echo'<input type="hidden" name="col_code" value="'.$col_code.'" />';
-        echo'<input type="submit" name="subb">';
-        echo '</form>';
+    echo '<form method="post" action="supIntroexe.php" >';
+    echo'<h4>給評價</h4><br/>';
+    echo'請輸入評價:<textarea name="c_content" rows="6" cols="50" placeholder="限300字"></textarea><br/><br/>';
+    echo'<input type="checkbox" name="col_record" vaLue="不收藏">收藏營隊(您已收藏，按下按鈕將取消收藏!!)<br/><br/>';
+    echo'<input type="hidden" name="act_code" value="'.$act_code.'" />';
+    echo'<input type="hidden" name="col_code" value="'.$col_code.'" />';
+    echo'<input type="submit" name="subb">';
+    echo '</form>';
 
 
-        mysqli_close($link);
-
-                }
+    mysqli_close($link);
+    }
 
 
     }else{
@@ -134,7 +134,10 @@ if($_POST["c_content"]!=""){
     mysqli_close($link);
 
     }
-}
-?>
+    }
+    ?>
+
+
+    </div>
 </body>
 </html>

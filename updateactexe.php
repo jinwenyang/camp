@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>更新後營隊</title>
+    <title>修改營隊</title>
 </head>
 <body>
         <?php include "header.php";
@@ -36,7 +36,7 @@ $act_code = $_POST["exeact_code"];
 			$act_stage7 = $_POST["exeact_stage7"];
 			$act_stage8 = $_POST["exeact_stage8"];
 			$act_field = $_POST["exeact_field"];
-			//$act_poster = $_POST['exeact_poster'];
+			$act_poster = $_POST['exeact_poster'];
 			$act_url = $_POST["exeact_url"];
 			$act_signup_starttime = $_POST["exeact_signup_starttime"];
 			$act_signup_endtime = $_POST["exeact_signup_endtime"];
@@ -47,7 +47,7 @@ $act_code = $_POST["exeact_code"];
 			$act_ORG = $_POST["exeact_ORG"];
 
 
-			$sql2 = "UPDATE activity SET act_name = '$act_name',act_desc = '$act_desc', act_price = '$act_price', act_area = '$act_area',act_stage1 = '$act_stage1', act_stage2 = '$act_stage2', act_stage3 = '$act_stage3', act_stage4 = '$act_stage4', act_stage5 = '$act_stage5', act_stage6 = '$act_stage6', act_stage7 = '$act_stage7', act_stage8 = '$act_stage8', act_field = '$act_field', act_url = '$act_url', act_signup_starttime = '$act_signup_starttime', act_signup_endtime = '$act_signup_endtime', act_starttime = '$act_starttime', act_endtime = '$act_endtime', act_PICname = '$act_PICname', act_PICphone = '$act_PICphone', act_ORG = '$act_ORG' WHERE act_code = '$act_code'";
+			$sql2 = "UPDATE activity SET act_name = '$act_name',act_desc = '$act_desc', act_price = '$act_price', act_area = '$act_area',act_stage1 = '$act_stage1', act_stage2 = '$act_stage2', act_stage3 = '$act_stage3', act_stage4 = '$act_stage4', act_stage5 = '$act_stage5', act_stage6 = '$act_stage6', act_stage7 = '$act_stage7', act_stage8 = '$act_stage8', act_field = '$act_field', act_poster = '$act_poster', act_url = '$act_url', act_signup_starttime = '$act_signup_starttime', act_signup_endtime = '$act_signup_endtime', act_starttime = '$act_starttime', act_endtime = '$act_endtime', act_PICname = '$act_PICname', act_PICphone = '$act_PICphone', act_ORG = '$act_ORG' WHERE act_code = '$act_code'";
 			$result=mysqli_query($link, $sql2);
 $results=mysqli_query($link,"SELECT * FROM activity WHERE u_code=$u_code;");
 			
@@ -55,8 +55,9 @@ $results=mysqli_query($link,"SELECT * FROM activity WHERE u_code=$u_code;");
 
 			while($row=mysqli_fetch_assoc($results)){
         echo"<tr>";
-        echo "<td>"; echo "海報位置"; echo "</td>";
-echo "<td>";
+        $act_poster=$row["act_poster"];
+echo"<td><img src='$act_poster' alt='營隊海報' width=250px height=200px></td>";
+       echo "<td>";
 //$act_code=$row["act_code"];
 echo "營隊名稱:".$row["act_name"]."<br>";
 // $act_name=$row["act_name"];

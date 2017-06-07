@@ -7,19 +7,21 @@
     <title>刪除公告</title>
 </head>
 <body>
-        <?php include "header.php";
-        include "dbconnect.php"; ?>
-
-<?php
-
- $n_code=$_GET["sn_code"];
-
-$sqL2="DELETE FROM news  WHERE n_code='$n_code'";
-$result=mysqli_query($link, $sqL2);
+        <?php 
+        
+        include "header.php";
+        include "dbconnect.php";
 
 
-mysqli_close($link);
-header('Location: actnews.php');
-	?>
+        $n_code=$_GET["sn_code"];
+
+        $sqL2="DELETE FROM news  WHERE n_code='$n_code'";
+        $result=mysqli_query($link, $sqL2);
+
+
+        mysqli_close($link);
+        header('Location: actnews.php');
+        ?>
+        
 </body>
 </html>
